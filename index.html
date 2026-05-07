@@ -1454,7 +1454,7 @@ button, .bnav-btn, .qa-btn, .aimlock-btn, .sens-preset-btn, .layout-btn {
         <div class="feat-group-label vip-group">
           <span class="badge-vip">VIP</span>
           <span>Advanced Features</span>
-          <button class="upgrade-mini-btn" onclick="showKeyModal()">Premium</button>
+          <button class="upgrade-mini-btn">VIP ACTIVE</button>
         </div>
         <div class="feature-list locked" id="feature-list-vip">
           <!-- injected by JS -->
@@ -2888,6 +2888,28 @@ function showKeyModal() {
     btn.style.color = '#000';
     btn.onclick = null;
   });
+  // MỞ KHÓA PREMIUM TỰ ĐỘNG
+document.documentElement.setAttribute('data-tier', 'vip');
+
+const vipList = document.getElementById('feature-list-vip');
+if (vipList) {
+  vipList.classList.remove('locked');
+  vipList.style.opacity = '1';
+  vipList.style.pointerEvents = 'auto';
+}
+
+// đổi badge FREE -> VIP
+document.querySelectorAll('.tier-badge').forEach(el => {
+  el.textContent = 'VIP';
+  el.classList.add('vip');
+});
+
+// tự bật toàn bộ feature VIP
+setTimeout(() => {
+  document.querySelectorAll('#feature-list-vip input[type="checkbox"]').forEach(cb => {
+    cb.checked = true;
+  });
+}, 300);
 
 // Đảm bảo các hàm phụ trợ tồn tại
 if (typeof showToast === 'undefined') {
